@@ -12,6 +12,7 @@ import org.jmetrics.metrics.Metric;
 import org.jmetrics.analyzer.LinesOfCode;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -42,8 +43,8 @@ public class Main {
                 System.out.println(linesOfCode);
                 System.out.println(numberOfMethods);
             });
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException exception) {
+            System.err.println("File not found: " + exception.getMessage());
         }
     }
 }
