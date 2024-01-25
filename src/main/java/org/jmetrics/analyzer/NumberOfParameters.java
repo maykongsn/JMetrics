@@ -1,9 +1,6 @@
 package org.jmetrics.analyzer;
 
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import org.jmetrics.collectors.ClassOrInterfaceVisitor;
 import org.jmetrics.elements.Method;
 import org.jmetrics.metrics.Metric;
 import org.jmetrics.metrics.MetricsCounter;
