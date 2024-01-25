@@ -10,6 +10,7 @@ import org.jmetrics.elements.Method;
 import org.jmetrics.elements.Type;
 import org.jmetrics.metrics.Metric;
 import org.jmetrics.analyzer.LinesOfCode;
+import org.jmetrics.metrics.Output;
 
 import java.io.FileInputStream;
 import java.nio.file.Path;
@@ -24,16 +25,23 @@ public class Main {
             CompilationUnit compilationUnit = StaticJavaParser.parse(in);
 
             compilationUnit.findAll(MethodDeclaration.class).forEach(methodDeclaration -> {
-                Method method = new Method(methodDeclaration);
-                Metric numberOfParameters = new NumberOfParameters().calculate(method);
-                System.out.println(numberOfParameters);
+                ClassOrInterfaceDeclaration classDeclaration = methodDeclaration.findAncestor(ClassOrInterfaceDeclaration.class).orElse(null);
+                if (classDeclaration != null) {
+                    String className = classDeclaration.getNameAsString();
+
+                    Method method = new Method(className, methodDeclaration);
+                    Metric numberOfParameters = new NumberOfParameters().calculate(method);
+
+                    System.out.println(numberOfParameters);
+                } else {
+                    System.out.println("Não foi possível encontrar a declaração da classe.");
+                }
             });
 
             compilationUnit.findAll(ClassOrInterfaceDeclaration.class).forEach(classOrInterfaceDeclaration -> {
                 Type type = new Type(classOrInterfaceDeclaration);
                 Metric linesOfCode = new LinesOfCode().calculate(type);
                 Metric numberOfMethods = new NumberOfMethods().calculate(type);
-
                 System.out.println(linesOfCode);
                 System.out.println(numberOfMethods);
             });

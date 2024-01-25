@@ -9,8 +9,9 @@ public class NumberOfMethods implements MetricsCounter<Type> {
     @Override
     public Metric calculate(Type type) {
         ClassOrInterfaceDeclaration declaration = type.getDeclaration();
+        String className = declaration.getNameAsString();
 
         int methodsCount = declaration.getMethods().size();
-        return new Metric("Number of Methods", methodsCount);
+        return new Metric(className,"", "Number of Methods", methodsCount);
     }
 }

@@ -1,12 +1,18 @@
 package org.jmetrics.metrics;
 
+import java.nio.file.Path;
 import java.util.Objects;
 
 public class Metric {
-    private String name;
-    private int value;
+    private final String name;
+    private final int value;
+    private final String methodName;
+    private final String className;
 
-    public Metric(String name, int value) {
+
+    public Metric(String className, String methodName, String name, int value) {
+        this.methodName = methodName;
+        this.className = className;
         this.name = name;
         this.value = value;
     }
@@ -34,6 +40,10 @@ public class Metric {
 
     @Override
     public String toString() {
-        return String.format("%-25s: %d", name, value);
+        String base = "Class: %-25s |";
+        String methodPart = this.methodName != null && !this.methodName.isEmpty() ?
+                String.format(" Method: %-25s |", this.methodName) : "";
+        return String.format(base + methodPart + " Metric: %-25s | Value: %d",
+                this.className, this.name, this.value);
     }
 }
