@@ -5,7 +5,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import org.jmetrics.elements.Type;
 import org.jmetrics.metrics.Metric;
-import org.jmetrics.utils.LoadClass;
+import org.jmetrics.utils.LoadElements;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LinesOfCodeTest {
     @Test
     public void testCalculateLinesOfCode() {
-        List<ClassOrInterfaceDeclaration> declaration = LoadClass.loadClassDeclaration("org/jmetrics/SampleClass.java");
+        List<ClassOrInterfaceDeclaration> declaration = LoadElements.loadClassDeclaration("org/jmetrics/SampleClass.java");
 
         declaration.forEach(classDeclaration -> {
             Type type = new Type(classDeclaration);

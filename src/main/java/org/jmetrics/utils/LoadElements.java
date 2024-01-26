@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-public class LoadClass {
+public class LoadElements {
     public static List<ClassOrInterfaceDeclaration> loadClassDeclaration(String source) {
         try {
             CompilationUnit compilationUnit = parseCompilationUnit(source);
@@ -31,7 +31,7 @@ public class LoadClass {
     }
 
     private static CompilationUnit parseCompilationUnit(String source) throws FileNotFoundException {
-        InputStream in = LoadClass.class.getClassLoader().getResourceAsStream(source);
+        InputStream in = LoadElements.class.getClassLoader().getResourceAsStream(source);
 
         if (in == null) {
             throw new FileNotFoundException("Resource not found");
