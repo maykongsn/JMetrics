@@ -1,10 +1,8 @@
-package org.jmetrics;
-
-public class Arquivo {
+public class SampleClass {
     private String name;
     private String email;
 
-    public Arquivo(String name, String email) {
+    public SampleClass(String name, String email) {
         this.name = name;
         this.email = email;
     }

@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 public class Main {
     public static void main(String[] args) {
         try {
-            Path filePath = Paths.get("src/main/java/org/jmetrics/Arquivo.java");
+            Path filePath = Paths.get("src/main/resources/SampleClass.java");
             FileInputStream in = new FileInputStream(filePath.toFile());
 
             CompilationUnit compilationUnit = StaticJavaParser.parse(in);
