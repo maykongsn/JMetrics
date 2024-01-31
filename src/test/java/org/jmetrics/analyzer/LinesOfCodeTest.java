@@ -19,7 +19,7 @@ public class LinesOfCodeTest {
             Type type = new Type(classDeclaration);
             Metric linesOfCode = new LinesOfCode().calculate(type);
 
-            assertEquals(17, linesOfCode.getValue());
+            assertEquals(15, linesOfCode.getValue());
         });
     }
 
@@ -40,6 +40,19 @@ public class LinesOfCodeTest {
             Metric linesOfCode = new LinesOfCode().calculate(type);
 
             assertEquals(4, linesOfCode.getValue());
+        });
+    }
+
+    @Test
+    public void testClassOrInterfaceWithComments() {
+        List<ClassOrInterfaceDeclaration> declaration = LoadElements.loadClassDeclaration("org/jmetrics/SampleClassWithComments.java");
+
+        declaration.forEach(classDeclaration -> {
+            Type type = new Type(classDeclaration);
+
+            Metric linesOfCode = new LinesOfCode().calculate(type);
+
+            assertEquals(2, linesOfCode.getValue());
         });
     }
 }

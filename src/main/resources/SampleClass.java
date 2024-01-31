@@ -8,7 +8,9 @@ public class SampleClass {
     }
 
     public void methodDoSomething(String name) {
-        // This Method does something
+        /* A
+        * A
+        */
     }
 
     public void anotherMethod(String email) {
