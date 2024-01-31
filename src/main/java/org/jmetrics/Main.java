@@ -1,50 +1,50 @@
 package org.jmetrics;
 
-import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import org.jmetrics.analyzer.LinesOfCode;
 import org.jmetrics.analyzer.NumberOfMethods;
 import org.jmetrics.analyzer.NumberOfParameters;
 import org.jmetrics.elements.Method;
 import org.jmetrics.elements.Type;
 import org.jmetrics.metrics.Metric;
-import org.jmetrics.analyzer.LinesOfCode;
+import org.jmetrics.utils.LoadElements;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            Path filePath = Paths.get("src/main/resources/SampleClass.java");
-            FileInputStream in = new FileInputStream(filePath.toFile());
+        List<MethodDeclaration> methodDeclarations = LoadElements.loadMethodsDeclaration("SampleClass.java");
+        List<ClassOrInterfaceDeclaration> classOrInterfaceDeclarations = LoadElements.loadClassDeclaration("SampleClass.java");
 
-            CompilationUnit compilationUnit = StaticJavaParser.parse(in);
+        methodDeclarations.forEach(methodDeclaration -> {
+            @SuppressWarnings("unchecked")
+            ClassOrInterfaceDeclaration classDeclaration = methodDeclaration.findAncestor(ClassOrInterfaceDeclaration.class).orElse(null);
+            String className = classDeclaration != null ? classDeclaration.getNameAsString() : null;
 
-            compilationUnit.findAll(MethodDeclaration.class).forEach(methodDeclaration -> {
-                @SuppressWarnings("unchecked")
-                ClassOrInterfaceDeclaration classDeclaration = methodDeclaration.findAncestor(ClassOrInterfaceDeclaration.class).orElse(null);
+            Method method = new Method(className, methodDeclaration);
+            Metric numberOfParameters = new NumberOfParameters().calculate(method);
 
-                String className = classDeclaration != null ? classDeclaration.getNameAsString() : null;
+            System.out.println(numberOfParameters);
+        });
 
-                Method method = new Method(className, methodDeclaration);
-                Metric numberOfParameters = new NumberOfParameters().calculate(method);
+        classOrInterfaceDeclarations.forEach(classOrInterfaceDeclaration -> {
+            Type type = new Type(classOrInterfaceDeclaration);
 
-                System.out.println(numberOfParameters);
-            });
+            Metric linesOfCode = new LinesOfCode().calculate(type);
+            Metric numberOfMethods = new NumberOfMethods().calculate(type);
 
-            compilationUnit.findAll(ClassOrInterfaceDeclaration.class).forEach(classOrInterfaceDeclaration -> {
-                Type type = new Type(classOrInterfaceDeclaration);
-                Metric linesOfCode = new LinesOfCode().calculate(type);
-                Metric numberOfMethods = new NumberOfMethods().calculate(type);
-                System.out.println(linesOfCode);
-                System.out.println(numberOfMethods);
-            });
-        } catch (FileNotFoundException exception) {
-            System.err.println("File not found: " + exception.getMessage());
-        }
+            System.out.println(linesOfCode);
+            System.out.println(numberOfMethods);
+        });
+
+//            compilationUnit.findAll(ClassOrInterfaceDeclaration.class).forEach(classOrInterfaceDeclaration -> {
+//                Type type = new Type(classOrInterfaceDeclaration);
+//                Metric linesOfCode = new LinesOfCode().calculate(type);
+//                Metric numberOfMethods = new NumberOfMethods().calculate(type);
+//                System.out.println(linesOfCode);
+//                System.out.println(numberOfMethods);
+//            });
     }
 }
