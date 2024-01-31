@@ -24,6 +24,12 @@ public class NumberOfParametersTest {
 
             assertEquals(1, metric.getValue());
         });
+    }
 
+    @Test
+    public void testMethodDeclarationWithoutMethods() {
+        List<MethodDeclaration> declarations = LoadElements.loadMethodsDeclaration("org/jmetrics/SampleClassWithoutMethods.java");
+
+        assertEquals(0, declarations.size());
     }
 }

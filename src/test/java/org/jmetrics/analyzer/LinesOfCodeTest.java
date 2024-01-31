@@ -27,19 +27,10 @@ public class LinesOfCodeTest {
         });
     }
 
-    private ClassOrInterfaceDeclaration loadClassDeclaration(String source) {
-        try {
-            InputStream in = getClass().getClassLoader().getResourceAsStream(source);
+    @Test
+    public void testClassOrInterfaceWithoutLinesOfCode() {
+        List<ClassOrInterfaceDeclaration> declaration = LoadElements.loadClassDeclaration("org/jmetrics/SampleClassWithoutLinesOfCode.java");
 
-            if (in == null) {
-                throw new FileNotFoundException("Resource not found");
-            }
-
-            CompilationUnit compilationUnit = StaticJavaParser.parse(in);
-
-            return compilationUnit.getClassByName("SampleClass").orElse(null);
-        } catch (FileNotFoundException exception) {
-            throw new RuntimeException("File not found at " + source, exception);
-        }
+        assertEquals(0, declaration.size());
     }
 }
