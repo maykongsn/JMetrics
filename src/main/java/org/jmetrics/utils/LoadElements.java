@@ -13,7 +13,7 @@ public class LoadElements {
     public static List<ClassOrInterfaceDeclaration> loadClassDeclaration(String source) {
         try {
             CompilationUnit compilationUnit = parseCompilationUnit(source);
-
+            
             return compilationUnit.findAll(ClassOrInterfaceDeclaration.class);
         } catch (FileNotFoundException exception) {
             throw new RuntimeException("File not found at " + source, exception);

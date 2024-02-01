@@ -5,4 +5,7 @@ public class SampleClass {
        Test
      */
     // Test
+    /**
+     * @return the number of comments
+     */
 }

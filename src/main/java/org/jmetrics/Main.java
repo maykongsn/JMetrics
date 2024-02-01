@@ -4,6 +4,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import org.jmetrics.analyzer.LinesOfCode;
+import org.jmetrics.analyzer.NumberOfComments;
 import org.jmetrics.analyzer.NumberOfMethods;
 import org.jmetrics.analyzer.NumberOfParameters;
 import org.jmetrics.elements.Method;
@@ -34,17 +35,11 @@ public class Main {
 
             Metric linesOfCode = new LinesOfCode().calculate(type);
             Metric numberOfMethods = new NumberOfMethods().calculate(type);
+            Metric numberOfComments = new NumberOfComments().calculate(type);
 
             System.out.println(linesOfCode);
             System.out.println(numberOfMethods);
+            System.out.println(numberOfComments);
         });
-
-//            compilationUnit.findAll(ClassOrInterfaceDeclaration.class).forEach(classOrInterfaceDeclaration -> {
-//                Type type = new Type(classOrInterfaceDeclaration);
-//                Metric linesOfCode = new LinesOfCode().calculate(type);
-//                Metric numberOfMethods = new NumberOfMethods().calculate(type);
-//                System.out.println(linesOfCode);
-//                System.out.println(numberOfMethods);
-//            });
     }
 }
