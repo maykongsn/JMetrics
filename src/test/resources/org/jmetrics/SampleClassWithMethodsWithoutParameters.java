@@ -9,11 +9,11 @@ public class SampleClass {
         this.email = email;
     }
 
-    private static void methodDoSomething(String name) {
+    private static void methodDoSomething() {
         // This Method does something
     }
 
-    public static void anotherMethod(String email) {
+    public static void anotherMethod() {
         // This Method does something
     }
 }
