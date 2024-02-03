@@ -1,3 +1,5 @@
+package org.jmetrics;
+
 public class SampleClass {
     private String name;
     private String email;
