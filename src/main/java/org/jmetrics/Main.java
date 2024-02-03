@@ -33,11 +33,13 @@ public class Main {
             Metric numberOfMethods = new NumberOfMethods().calculate(type);
             Metric numberOfComments = new NumberOfComments().calculate(type);
             Metric linesOfComments = new LinesOfComments().calculate(type);
+            Metric numberOfAttributes = new NumberOfAttributes().calculate(type);
 
             System.out.println(linesOfCode);
             System.out.println(numberOfMethods);
             System.out.println(numberOfComments);
             System.out.println(linesOfComments);
+            System.out.println(numberOfAttributes);
         });
     }
 }
